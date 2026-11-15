@@ -9,7 +9,6 @@ How the cinematic homepage and the site-wide motion system are built, and what c
 | A | Hero | `sections/HeroCinematic.jsx` | Headline "Empowering Lives. Igniting Futures." ("Futures." in gold). Full-screen mining photo (AVIF/WebP) that settles from a slow zoom, then parallaxes on scroll. Navy overlays, drifting contour lines, staged headline reveal, scroll cue. |
 | B | At a glance | `sections/AtAGlance.jsx` | Count-up statistics. Every number is computed from `src/data/*` (divisions, offices, mining districts, training programmes), so it cannot drift from the facts. |
 | C | Business divisions | `sections/Divisions.jsx` | Five alternating editorial layouts: curtain-wipe image reveal, hover zoom, outlined index numbers, gold accents. Industrial Training uses a designed programme panel instead of a photo. |
-| D | About | `sections/AboutIntro.jsx` | Editorial statement, verified corporate information (legal name, corporate office, contact) and the founder with his guiding words. |
 | E | Footprint | `sections/FootprintMap.jsx` + `data/geo.js` | Indicative SVG map of Odisha: offices (gold, pulsing), mining districts (teal), construction (gold diamond). Bengaluru corporate office shown as an inset card. |
 | F | Projects & operations | `sections/ProjectsShowcase.jsx` | Large image panels for mining operations and construction at Paradip, marked "Details to be published". |
 | G | Community | `sections/CommunityTeaser.jsx` | The Maakalarai Charitable Trust (the only confirmed initiative), linking to the trust's website. |
