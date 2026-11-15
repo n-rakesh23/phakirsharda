@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Placeholder: Industrial Training">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#10243A"/><stop offset="1" stop-color="#0A1724"/>
+    </linearGradient>
+    <pattern id="p" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0v48" fill="none" stroke="#ffffff" stroke-opacity=".05"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#g)"/>
+  <rect width="1600" height="900" fill="url(#p)"/>
+  <g transform="translate(680 250) scale(10)" fill="none" stroke="#D6A64F" stroke-opacity=".55" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 15.5a7.5 7.5 0 0 1 15 0"/><path d="M10 8.6V13M14 8.6V13"/><path d="M2.5 15.5h19V18h-19z"/></g>
+  <text x="800" y="580" text-anchor="middle" font-family="Manrope, Segoe UI, Arial, sans-serif" font-size="56" font-weight="700" fill="#ffffff">Industrial Training</text>
+  <text x="800" y="640" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="26" fill="#ffffff" fill-opacity=".6">Placeholder · replace with an approved company photograph</text>
+</svg>
