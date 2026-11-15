@@ -144,7 +144,21 @@ export default function BusinessPage() {
             {business.locationsTitle && (
               <div className="mt-12">
                 <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-navy">{business.locationsTitle}</h2>
-                {business.locations.length > 0 ? (
+                {business.centres?.length ? (
+                  <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+                    {business.centres.map((c, i) => (
+                      <Reveal as="li" key={c.id} delay={i * 90} className="rounded-xl border border-navy/10 bg-white p-5 shadow-card">
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">{c.state}</p>
+                        <p className="mt-1 font-heading text-xl font-extrabold text-navy">{c.city}</p>
+                        <OfficeAddress office={c} className="mt-2 text-sm" />
+                        <a href={mapLink(c)} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-navy underline decoration-gold underline-offset-4 hover:text-gold">
+                          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><path d="M8 14s5-4.5 5-8.5A5 5 0 0 0 3 5.5C3 9.5 8 14 8 14Z"/><circle cx="8" cy="5.5" r="1.8"/></svg>
+                          Map<span className="sr-only"> of the {c.city} training centre (opens in a new tab)</span>
+                        </a>
+                      </Reveal>
+                    ))}
+                  </ul>
+                ) : business.locations.length > 0 ? (
                   <ul className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
                     {business.locations.map((l) => (
                       <li key={l} className="rounded-lg border border-navy/10 bg-white px-4 py-3 font-heading font-semibold text-navy shadow-card">

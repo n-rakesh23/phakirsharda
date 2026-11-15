@@ -3,7 +3,7 @@ import { motion } from 'motion/react'
 import Container from '../common/Container'
 import OfficeAddress from '../common/OfficeAddress'
 import { coastline, mapBounds, mapPoints } from '../../data/geo'
-import { offices } from '../../data/site'
+import { offices, trainingCentres } from '../../data/site'
 import { ease, fadeUp, stagger, viewport } from '../../lib/motion'
 
 const W = 600
@@ -20,6 +20,7 @@ const kinds = {
   office: { label: 'Office', swatch: <span className="h-3 w-3 rounded-full bg-gold ring-4 ring-gold/25" /> },
   mining: { label: 'Mining district', swatch: <span className="h-3.5 w-3.5 rounded-full border-2 border-brand-teal bg-brand-teal/20" /> },
   construction: { label: 'Construction', swatch: <span className="h-3 w-3 rotate-45 border-2 border-gold" /> },
+  training: { label: 'Training centre', swatch: <span className="h-3 w-3 rounded-sm bg-gold/80" /> },
 }
 
 function Marker({ p, i }) {
@@ -77,6 +78,7 @@ export default function FootprintMap() {
     { kind: 'office', title: 'Offices', items: [...(corporate ? [`${corporate.city} (Corporate)`] : []), ...mapPoints.filter((p) => p.kind === 'office').map((p) => p.name), ...mapPoints.filter((p) => p.office && p.kind !== 'office').map((p) => `${p.name} (Suntech Infra)`)] },
     { kind: 'mining', title: 'Mining districts', items: mapPoints.filter((p) => p.kind === 'mining').map((p) => p.name) },
     { kind: 'construction', title: 'Construction', items: mapPoints.filter((p) => p.kind === 'construction').map((p) => p.name) },
+    { kind: 'training', title: 'Training centres', items: trainingCentres.map((c) => c.city) },
   ]
 
   return (

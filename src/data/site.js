@@ -83,7 +83,23 @@ export const miningDistricts = ['Keonjhar', 'Sundargarh', 'Jajpur', 'Mayurbhanj'
 
 export const constructionLocations = ['Paradip']
 
-export const trainingCentres = [] // TBC
+// Industrial training centres, as supplied by the company (Nov 2026).
+export const trainingCentres = [
+  office({
+    id: 'training-bengaluru',
+    label: 'Training Centre',
+    city: 'Bengaluru',
+    state: 'Karnataka',
+    addressLines: ['Opp. NPS School, Hormavu', 'Bangalore, Karnataka'],
+  }),
+  office({
+    id: 'training-bhubaneswar',
+    label: 'Training Centre',
+    city: 'Bhubaneswar',
+    state: 'Odisha',
+    addressLines: ['Jharpada', 'Bhubaneswar, Odisha'],
+  }),
+]
 
 export const enquiryCategories = [
   'Mining',

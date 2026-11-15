@@ -95,7 +95,24 @@ export default function Locations() {
           <div className="mt-10 space-y-12">
             <Group title="Mining districts, Odisha" kind="ops" items={miningDistricts} />
             <Group title="Construction" kind="ops" items={constructionLocations} />
-            <Group title="Training centres" kind="ops" items={trainingCentres} empty="To be confirmed." />
+            <div>
+              <h3 className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.18em] text-navy">
+                <span aria-hidden="true" className="inline-block h-2.5 w-2.5 rounded-sm bg-gold" />
+                Industrial training centres
+              </h3>
+              <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {trainingCentres.map((c, n) => (
+                  <Reveal as="li" key={c.id} delay={n * 80} className="rounded-lg border border-navy/10 bg-white p-5 shadow-card">
+                    <p className="font-heading text-lg font-bold text-navy">{c.city}</p>
+                    <OfficeAddress office={c} className="mt-1 text-sm" />
+                    <a href={mapLink(c)} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-navy underline decoration-gold underline-offset-4 hover:text-gold">
+                      <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><path d="M8 14s5-4.5 5-8.5A5 5 0 0 0 3 5.5C3 9.5 8 14 8 14Z"/><circle cx="8" cy="5.5" r="1.8"/></svg>
+                      Map<span className="sr-only"> of the {c.city} training centre (opens in a new tab)</span>
+                    </a>
+                  </Reveal>
+                ))}
+              </ul>
+            </div>
             <div>
               <h3 className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.18em] text-navy">
                 <span aria-hidden="true" className="inline-block h-2.5 w-2.5 rounded-full bg-trust-red" />

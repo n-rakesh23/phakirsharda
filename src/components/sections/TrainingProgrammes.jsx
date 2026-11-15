@@ -5,6 +5,7 @@ import Collapse from '../common/Collapse'
 import Reveal from '../common/Reveal'
 import SectionHeading from '../common/SectionHeading'
 import { programmes, trainingTracks } from '../../data/training'
+import { trainingCentres } from '../../data/site'
 
 const trackIcon = {
   data: (
@@ -113,7 +114,7 @@ export default function TrainingProgrammes() {
         <SectionHeading
           eyebrow="Skill development programmes"
           title={`${programmes.length} programmes in ${trainingTracks.length} tracks.`}
-          intro="Practical, job-focused training in data, cloud and IT infrastructure."
+          intro={`Practical, job-focused training in data, cloud and IT infrastructure, at our centres in ${trainingCentres.map((c) => c.city).join(' and ')}.`}
         />
         <div className="mt-14 space-y-16">
           {trainingTracks.map((track) => {

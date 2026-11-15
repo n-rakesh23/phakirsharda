@@ -1,4 +1,4 @@
-import { constructionLocations, miningDistricts } from './site'
+import { constructionLocations, miningDistricts, trainingCentres } from './site'
 
 // The five business verticals.
 // - `image`   branded placeholder (public/images/<folder>/placeholder.svg)
@@ -73,12 +73,12 @@ export const businesses = [
     intro:
       'We run job-focused skill development programmes in data engineering, data science, data analysis, cloud computing and QA testing, and VMware, Windows and Red Hat Linux administration.',
     locationsTitle: 'Training centres',
-    locations: [],
+    locations: trainingCentres.map((c) => c.city),
+    centres: trainingCentres, // rendered as address cards on the business page
     enquiryCategory: 'Industrial training',
     pending: [
       'Duration and batch schedule for each programme',
       'Eligibility and how to apply',
-      'Training centre location(s)',
       'Fees (if published)',
       'Certificates issued, and any accreditation (only if documented)',
     ],
