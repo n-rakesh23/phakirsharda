@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import Container from '../common/Container'
+import Photo, { RepresentativeLabel } from '../common/Photo'
 import Reveal from '../common/Reveal'
 import SectionHeading from '../common/SectionHeading'
 import { businesses } from '../../data/businesses'
@@ -36,11 +37,11 @@ export default function BusinessesBento() {
                 className="group relative flex h-full flex-col justify-end overflow-hidden rounded-xl bg-navy p-7 text-white shadow-card transition-shadow duration-300 hover:shadow-card-hover"
               >
                 {b.photo ? (
-                  <img
-                    src={b.photo}
-                    alt=""
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  <Photo
+                    photo={{ ...b.photo, alt: '' }}
+                    sizes={i === 0 ? '(min-width: 1024px) 50vw, 100vw' : '(min-width: 1024px) 25vw, 100vw'}
+                    label={false}
+                    className="absolute! inset-0 [&>img]:transition-transform [&>img]:duration-700 group-hover:[&>img]:scale-105"
                   />
                 ) : (
                   <span
@@ -50,6 +51,7 @@ export default function BusinessesBento() {
                   />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/10" aria-hidden="true" />
+                <RepresentativeLabel photo={b.photo} className="right-3 top-3" />
                 <div className="relative">
                   <span className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-white">
                     <img src={b.icon} alt="" width="28" height="28" className="h-7 w-7" />

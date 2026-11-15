@@ -1,7 +1,9 @@
 import Container from '../components/common/Container'
 import Button from '../components/common/Button'
+import usePageMeta from '../hooks/usePageMeta'
 
 export default function NotFound() {
+  usePageMeta('Page not found')
   return (
     <Container className="py-32 text-center">
       <p className="text-sm font-semibold uppercase tracking-widest text-gold">404</p>

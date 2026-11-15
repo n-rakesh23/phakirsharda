@@ -1,8 +1,11 @@
 import Container from '../common/Container'
 import Button from '../common/Button'
 import Contours from '../common/Contours'
+import Photo, { RepresentativeLabel } from '../common/Photo'
 import { businesses } from '../../data/businesses'
 import { company, miningDistricts, offices } from '../../data/site'
+
+const heroPhoto = businesses.find((b) => b.slug === 'mining')?.photo
 
 const facts = [
   { value: businesses.length, label: 'Business verticals' },
@@ -13,11 +16,17 @@ const facts = [
 export default function Hero() {
   return (
     <section className="relative isolate overflow-hidden bg-ink text-white">
-      <Contours className="text-gold" />
-      <div
-        aria-hidden="true"
-        className="absolute -right-40 -top-40 -z-10 h-[36rem] w-[36rem] rounded-full bg-brand-teal/20 blur-3xl"
+      <Photo
+        photo={heroPhoto}
+        eager
+        sizes="100vw"
+        className="absolute! inset-0 -z-20"
+        label={false}
       />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-ink from-15% via-ink/85 to-ink/25" />
+      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-1/2 bg-gradient-to-t from-ink to-transparent" />
+      <Contours className="text-gold opacity-70" />
+      <RepresentativeLabel photo={heroPhoto} className="right-3 top-3" />
       <Container className="relative pb-16 pt-20 sm:pb-20 sm:pt-28 lg:pt-36">
         <p className="mb-6 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-gold">
           <span className="h-px w-10 bg-gold" aria-hidden="true" />

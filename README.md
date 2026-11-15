@@ -173,6 +173,9 @@ phakirsharda/
 │           transportation.svg  industrial-training.svg  community.svg
 ├── scripts/
 │   └── generate-assets.py   # Regenerates icons/OG/placeholders from the logo (needs Pillow)
+├── design-assets/
+│   └── photos/              # Original, unprocessed photos (not served). Web versions are
+│                            # cropped/resized WebP files in public/images/<section>/
 ├── src/
 │   ├── assets/
 │   │   └── brand/
@@ -189,9 +192,10 @@ phakirsharda/
 │   │   └── NotFound.jsx
 │   ├── data/
 │   │   ├── site.js          # Company, trust, offices, districts, enquiry categories
-│   │   ├── businesses.js    # The five verticals
+│   │   ├── businesses.js    # The five verticals (copy, locations, photos, pending items)
+│   │   ├── projects.js      # Projects & operations cards
 │   │   └── navigation.js    # Main nav (built from businesses.js)
-│   ├── hooks/
+│   ├── hooks/usePageMeta.js # Per-page <title> and meta description
 │   ├── styles/index.css     # Tailwind import, @theme tokens, base styles
 │   ├── utils/
 │   ├── App.jsx              # Routes
@@ -216,6 +220,7 @@ phakirsharda/
 ├── .env.example
 ├── .gitignore
 ├── .oxlintrc.json
+├── vercel.json              # SPA fallback for Vercel (public/_redirects covers Netlify)
 ├── index.html
 ├── package.json
 ├── vite.config.js
@@ -324,6 +329,13 @@ The form should validate inputs, include spam protection, show success
 and error states, and send submissions to a company-controlled
 destination. The final destination and privacy notice must be agreed
 before launch.
+
+**Current implementation:** `src/pages/Contact.jsx` validates on the
+client, includes a honeypot field and a consent checkbox, and POSTs JSON
+to `VITE_ENQUIRY_ENDPOINT` (set in `.env`). It works with Formspree,
+Web3Forms or a serverless function. Until the variable is set, nothing
+is sent and the form says so. The receiving service must validate on the
+server and apply spam protection.
 
 ## 10. SEO and performance
 
