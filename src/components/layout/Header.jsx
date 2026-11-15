@@ -53,9 +53,10 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button to="/contact" className="hidden sm:inline-flex">
-            Business Enquiry
-          </Button>
+          {/* Wrapper controls visibility: Button's own inline-flex would override `hidden`. */}
+          <span className="hidden md:block">
+            <Button to="/contact">Business Enquiry</Button>
+          </span>
           <button
             type="button"
             className="rounded p-2 text-white xl:hidden"
@@ -90,7 +91,7 @@ export default function Header() {
                 )}
               </div>
             ))}
-            <Button to="/contact" className="mt-4 sm:hidden">
+            <Button to="/contact" className="mt-4 md:hidden">
               Business Enquiry
             </Button>
           </Container>

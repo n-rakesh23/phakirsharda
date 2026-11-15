@@ -10,6 +10,7 @@ export default function Businesses() {
       <Container className="grid gap-5 py-16 sm:grid-cols-2 lg:grid-cols-3">
         {businesses.map((b) => (
           <Link key={b.slug} to={b.slug} className="rounded-lg bg-white p-6 shadow-sm transition hover:shadow-md">
+            <img src={b.icon} alt="" width="40" height="40" className="mb-4 h-10 w-10" />
             <h2 className="text-xl font-bold">{b.name}</h2>
             <p className="mt-2 text-sm">{b.summary}</p>
           </Link>

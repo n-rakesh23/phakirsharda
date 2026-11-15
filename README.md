@@ -158,11 +158,21 @@ Design tokens live in `src/styles/index.css` under `@theme`.
 ``` text
 phakirsharda/
 ├── public/
+│   ├── favicon.ico          # 16/32/48 px, cropped to the logo's globe for legibility
+│   ├── site.webmanifest
 │   ├── images/              # Photography, one folder per section
+│   │   ├── og-image.jpg     # 1200×630 social share image
 │   │   ├── hero/  mining/  construction/  manufacturing/
 │   │   ├── transportation/  training/  community/
+│   │   │                    # each holds placeholder.svg until approved photos arrive
 │   │   └── placeholders/    # Temporary stock only, never shown as company assets
-│   └── icons/               # Favicons / touch icons (to be generated)
+│   └── icons/
+│       ├── favicon-16.png  favicon-32.png  apple-touch-icon.png
+│       ├── icon-192.png  icon-512.png  icon-maskable-512.png
+│       └── mining.svg  construction.svg  manufacturing.svg
+│           transportation.svg  industrial-training.svg  community.svg
+├── scripts/
+│   └── generate-assets.py   # Regenerates icons/OG/placeholders from the logo (needs Pillow)
 ├── src/
 │   ├── assets/
 │   │   └── brand/

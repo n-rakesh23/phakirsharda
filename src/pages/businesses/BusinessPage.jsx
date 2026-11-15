@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom'
+import Container from '../../components/common/Container'
 import PageHeader from '../../components/common/PageHeader'
 import ContentPending from '../../components/common/ContentPending'
 import NotFound from '../NotFound'
@@ -20,6 +21,15 @@ export default function BusinessPage() {
   return (
     <>
       <PageHeader eyebrow="Businesses" title={business.name} intro={business.summary} />
+      <Container className="pt-16">
+        <img
+          src={business.image}
+          alt={`${business.name} — placeholder image`}
+          width="1600"
+          height="900"
+          className="aspect-video w-full rounded-lg object-cover"
+        />
+      </Container>
       <ContentPending items={pending[slug]} />
     </>
   )

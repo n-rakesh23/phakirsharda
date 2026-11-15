@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import Container from '../components/common/Container'
 import PageHeader from '../components/common/PageHeader'
 import Button from '../components/common/Button'
@@ -10,6 +11,9 @@ const field = 'mt-1 block w-full rounded-md border border-slate/30 bg-white px-3
 // server-side validation and spam protection are required before launch.
 export default function Contact() {
   const [status, setStatus] = useState('idle')
+  const [params] = useSearchParams()
+  const requested = params.get('category')
+  const initialCategory = enquiryCategories.includes(requested) ? requested : ''
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -27,7 +31,7 @@ export default function Contact() {
           <label className="text-sm font-medium text-graphite">Email *<input name="email" type="email" required className={field} autoComplete="email" /></label>
           <label className="text-sm font-medium text-graphite">Phone<input name="phone" type="tel" className={field} autoComplete="tel" /></label>
           <label className="text-sm font-medium text-graphite">Enquiry category *
-            <select name="category" required className={field} defaultValue="">
+            <select key={initialCategory} name="category" required className={field} defaultValue={initialCategory}>
               <option value="" disabled>Select…</option>
               {enquiryCategories.map((c) => <option key={c}>{c}</option>)}
             </select>
