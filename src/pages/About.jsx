@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom'
 import Container from '../components/common/Container'
 import PageHeader from '../components/common/PageHeader'
-import ContentPending from '../components/common/ContentPending'
 import Reveal from '../components/common/Reveal'
 import SectionHeading from '../components/common/SectionHeading'
 import EnquiryBand from '../components/sections/EnquiryBand'
 import usePageMeta from '../hooks/usePageMeta'
 import { businesses } from '../data/businesses'
 import { company, miningDistricts, offices, trust } from '../data/site'
+import { leadership } from '../data/leadership'
+import Contours from '../components/common/Contours'
+
+const founders = leadership.filter((p) => p.featured)
+const team = leadership.filter((p) => !p.featured)
 import logo from '../assets/brand/phakir-sarada-logo.jpeg'
 import trustLogo from '../assets/brand/maa-kalarai-trust-logo.webp'
 
@@ -81,6 +85,106 @@ export default function About() {
         </Container>
       </section>
 
+      {/* Founder */}
+      {founders.map((person) => (
+        <section key={person.id} aria-labelledby={`leader-${person.id}`} className="bg-white py-[clamp(4rem,8vw,7rem)]">
+          <Container className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+            <Reveal className="lg:col-span-5">
+              <figure className="relative mx-auto max-w-sm lg:max-w-none">
+                <div aria-hidden="true" className="absolute -bottom-4 -right-4 h-full w-full rounded-2xl border-2 border-gold/60" />
+                <img
+                  src={person.photo.src}
+                  srcSet={`${person.photo.srcSmall} 360w, ${person.photo.src} ${person.photo.width}w`}
+                  sizes="(min-width: 1024px) 40vw, 90vw"
+                  width={person.photo.width}
+                  height={person.photo.height}
+                  alt={`Portrait of ${person.name}, ${person.role}`}
+                  loading="lazy"
+                  className="relative aspect-[4/5] w-full rounded-2xl object-cover shadow-card"
+                />
+                <figcaption className="sr-only">{person.name}, {person.role}</figcaption>
+              </figure>
+            </Reveal>
+            <Reveal className="lg:col-span-7" delay={120}>
+              <p className="mb-4 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                <span className="h-px w-8 bg-gold" aria-hidden="true" />
+                Our founder
+              </p>
+              <h2 id={`leader-${person.id}`} className="text-display-md font-extrabold">{person.name}</h2>
+              <p className="mt-2 font-heading text-lg font-semibold text-graphite">{person.role}</p>
+              <ul className="mt-6 flex flex-wrap gap-2">
+                {person.qualities.map((q) => (
+                  <li key={q} className="rounded-full border border-gold/60 bg-gold/10 px-4 py-1.5 text-sm font-semibold text-navy">
+                    {q}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8 max-w-[60ch] space-y-4 text-lg leading-relaxed">
+                {person.bio.map((p) => <p key={p}>{p}</p>)}
+              </div>
+              {person.guidingWords && (
+                <figure className="mt-10 max-w-[60ch] border-l-2 border-gold pl-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">Guiding words</p>
+                  <blockquote className="mt-4">
+                    <p lang="sa" className="whitespace-pre-line font-devanagari text-xl leading-relaxed text-navy sm:text-2xl">
+                      {person.guidingWords.original}
+                    </p>
+                    <p className="mt-3 text-sm italic text-graphite">{person.guidingWords.transliteration}</p>
+                    <p className="mt-4 font-heading text-lg font-semibold leading-snug text-navy">
+                      “{person.guidingWords.translation}”
+                    </p>
+                  </blockquote>
+                  <figcaption className="mt-3 text-sm text-slate">{person.guidingWords.source}</figcaption>
+                </figure>
+              )}
+            </Reveal>
+          </Container>
+        </section>
+      ))}
+
+      {/* Leadership team */}
+      {team.length > 0 && (
+        <section aria-labelledby="leadership-team" className="relative isolate overflow-hidden bg-ink py-[clamp(4rem,8vw,7rem)] text-white">
+          <Contours className="text-gold opacity-40" />
+          <Container className="relative">
+            <p className="mb-4 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+              <span className="h-px w-8 bg-gold" aria-hidden="true" />
+              Leadership
+            </p>
+            <h2 id="leadership-team" className="text-display-md font-extrabold text-white">The people behind the work.</h2>
+            <ul className="mt-14 grid gap-6 md:grid-cols-3 lg:gap-8">
+              {team.map((person, i) => (
+                <Reveal as="li" key={person.id} delay={i * 120}>
+                  <figure className="flex h-full flex-col overflow-hidden rounded-2xl bg-white/[0.04] ring-1 ring-white/10">
+                    <img
+                      src={person.photo.src}
+                      srcSet={`${person.photo.srcSmall} 360w, ${person.photo.src} ${person.photo.width}w`}
+                      sizes="(min-width: 768px) 33vw, 100vw"
+                      width={person.photo.width}
+                      height={person.photo.height}
+                      alt={`Portrait of ${person.name}`}
+                      loading="lazy"
+                      className="aspect-[4/5] w-full object-cover"
+                    />
+                    <div className="flex flex-1 flex-col justify-between gap-8 p-7">
+                      <blockquote className="relative pt-9">
+                        <span aria-hidden="true" className="absolute -left-1 top-0 font-heading text-6xl leading-none text-gold/50">“</span>
+                        <p className="relative font-heading text-lg font-semibold leading-snug text-white lg:text-xl">{person.quote}</p>
+                      </blockquote>
+                      <figcaption>
+                        <span className="block h-px w-10 bg-gold" aria-hidden="true" />
+                        <span className="mt-4 block font-heading text-lg font-bold text-white">{person.name}</span>
+                        <span className="block text-sm text-white/60">{person.role}</span>
+                      </figcaption>
+                    </div>
+                  </figure>
+                </Reveal>
+              ))}
+            </ul>
+          </Container>
+        </section>
+      )}
+
       {/* Mission / vision / values — awaiting approved wording */}
       <section className="py-[clamp(4rem,8vw,7rem)]">
         <Container>
@@ -131,11 +235,6 @@ export default function About() {
           <img src={trustLogo} alt={trust.name} width="350" height="100" loading="lazy" className="mx-auto h-auto w-full max-w-md" />
         </Container>
       </section>
-
-      <ContentPending
-        title="Leadership"
-        items={['Leadership names, roles and photographs (only if approved for publication)']}
-      />
 
       <EnquiryBand />
     </>
