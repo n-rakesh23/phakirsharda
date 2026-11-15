@@ -20,12 +20,13 @@ const avifOf = (src) => src?.replace(/\.webp$/, '.avif')
 
 function srcSets(photo) {
   const w = photo.width ?? 1600
-  const webp = photo.srcSmall ? `${photo.srcSmall} 800w, ${photo.src} ${w}w` : `${photo.src} ${w}w`
-  const avif = photo.avif ? (photo.srcSmall ? `${avifOf(photo.srcSmall)} 800w, ${avifOf(photo.src)} ${w}w` : `${avifOf(photo.src)} ${w}w`) : null
+  const sw = photo.smallWidth ?? 800
+  const webp = photo.srcSmall ? `${photo.srcSmall} ${sw}w, ${photo.src} ${w}w` : `${photo.src} ${w}w`
+  const avif = photo.avif ? (photo.srcSmall ? `${avifOf(photo.srcSmall)} ${sw}w, ${avifOf(photo.src)} ${w}w` : `${avifOf(photo.src)} ${w}w`) : null
   return { webp, avif }
 }
 
-export function Picture({ photo, sizes = '100vw', eager = false, className = '', alt }) {
+export function Picture({ photo, sizes = '100vw', eager = false, className = '', alt, fit = 'cover' }) {
   const { webp, avif } = srcSets(photo)
   return (
     <picture>
@@ -37,7 +38,7 @@ export function Picture({ photo, sizes = '100vw', eager = false, className = '',
         loading={eager ? 'eager' : 'lazy'}
         fetchPriority={eager ? 'high' : undefined}
         decoding="async"
-        className={`h-full w-full object-cover ${className}`}
+        className={`h-full w-full ${fit === 'contain' ? 'object-contain' : 'object-cover'} ${className}`}
       />
     </picture>
   )

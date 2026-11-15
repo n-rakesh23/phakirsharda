@@ -57,6 +57,10 @@ function Division({ b, index }) {
           <ImageReveal className="aspect-[4/3] rounded-2xl sm:aspect-[16/11]">
             <Picture photo={b.photo} alt="" sizes="(min-width: 1024px) 58vw, 100vw" />
           </ImageReveal>
+        ) : b.logo ? (
+          <ImageReveal className="aspect-[3/2] rounded-2xl bg-black ring-1 ring-gold/20">
+            <Picture photo={b.logo} alt="" sizes="(min-width: 1024px) 58vw, 100vw" />
+          </ImageReveal>
         ) : (
           <ImageReveal className="rounded-2xl">
             <TrainingVisual />

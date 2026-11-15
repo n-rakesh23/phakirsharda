@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import Container from '../../components/common/Container'
 import PageHeader from '../../components/common/PageHeader'
-import Photo, { RepresentativeLabel } from '../../components/common/Photo'
+import Photo, { Picture, RepresentativeLabel } from '../../components/common/Photo'
 import Reveal from '../../components/common/Reveal'
 import EnquiryBand from '../../components/sections/EnquiryBand'
 import usePageMeta from '../../hooks/usePageMeta'
@@ -34,6 +34,10 @@ export default function Businesses() {
                       <Photo photo={{ ...b.photo, alt: '' }} sizes="(min-width: 768px) 50vw, 100vw" label={false} className="absolute! inset-0 transition-transform duration-700 group-hover:scale-105" />
                       <RepresentativeLabel photo={b.photo} />
                     </>
+                  ) : b.logo ? (
+                    <div className="absolute inset-0 bg-black transition-transform duration-700 group-hover:scale-105">
+                      <Picture photo={b.logo} alt="" sizes="(min-width: 768px) 50vw, 100vw" fit="contain" />
+                    </div>
                   ) : (
                     <span
                       aria-hidden="true"

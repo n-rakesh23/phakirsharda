@@ -38,7 +38,9 @@ function Hero({ business }) {
           ) : (
             <>
               <Contours className="text-gold opacity-60" />
-              <span aria-hidden="true" className="absolute -right-10 top-1/2 h-[28rem] w-[28rem] -translate-y-1/2 bg-gold opacity-[0.08]" style={iconMask} />
+              {!business.logo && (
+                <span aria-hidden="true" className="absolute -right-10 top-1/2 h-[28rem] w-[28rem] -translate-y-1/2 bg-gold opacity-[0.08]" style={iconMask} />
+              )}
             </>
           )}
         </motion.div>
@@ -52,29 +54,64 @@ function Hero({ business }) {
       )}
 
       <motion.div style={{ y: contentY, opacity: contentOpacity }}>
-        <Container className={`relative flex flex-col justify-end pb-16 pt-24 sm:pb-24 ${photo ? 'min-h-[60vh] sm:min-h-[70vh]' : 'sm:pt-32'}`}>
+        <Container className={`relative pb-16 pt-24 sm:pb-24 ${photo ? 'flex min-h-[60vh] flex-col justify-end sm:min-h-[70vh]' : 'sm:pt-32'} ${business.logo && !photo ? 'grid items-center gap-12 lg:grid-cols-12' : ''}`}>
+          <div className={business.logo && !photo ? 'lg:col-span-6' : ''}>
           <motion.div variants={fadeIn} initial="hidden" animate="show" custom={0.05}>
             <Breadcrumb items={[{ label: 'Businesses', to: '/businesses' }, { label: business.name }]} />
           </motion.div>
-          <motion.span
-            className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-white"
-            variants={scaleReveal}
-            initial="hidden"
-            animate="show"
-            custom={0.15}
-          >
-            <img src={business.icon} alt="" width="32" height="32" className="h-8 w-8" />
-          </motion.span>
-          <h1 className="max-w-3xl font-heading text-display-xl font-extrabold text-white">
-            <span className="-mb-[0.14em] block overflow-hidden pb-[0.18em]">
-              <motion.span className="block" variants={lineReveal} initial="hidden" animate="show" custom={0.3}>
-                {business.name}
-              </motion.span>
-            </span>
-          </h1>
+          {/* Icon tile is skipped when the business has its own badge (Industrial Training) */}
+          {!business.logo && (
+            <motion.span
+              className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-white"
+              variants={scaleReveal}
+              initial="hidden"
+              animate="show"
+              custom={0.15}
+            >
+              <img src={business.icon} alt="" width="32" height="32" className="h-8 w-8" />
+            </motion.span>
+          )}
+          {business.hideHeroTitle ? (
+            <h1 className="sr-only">{business.name}</h1>
+          ) : (
+            <h1 className="max-w-3xl font-heading text-display-xl font-extrabold text-white">
+              <span className="-mb-[0.14em] block overflow-hidden pb-[0.18em]">
+                <motion.span className="block" variants={lineReveal} initial="hidden" animate="show" custom={0.3}>
+                  {business.name}
+                </motion.span>
+              </span>
+            </h1>
+          )}
+          {business.tagline && (
+            <motion.p
+              className={`max-w-xl bg-gradient-to-r from-[#e8c27a] via-gold to-[#b98a36] bg-clip-text font-heading font-extrabold text-transparent ${
+                business.hideHeroTitle
+                  ? 'text-[clamp(2.4rem,4.4vw+0.5rem,4.25rem)] leading-[1.05] tracking-[-0.03em]'
+                  : 'mt-5 text-2xl font-bold leading-snug sm:text-3xl'
+              }`}
+              variants={fadeUp}
+              initial="hidden"
+              animate="show"
+              custom={0.45}
+            >
+              {business.tagline}
+            </motion.p>
+          )}
           <motion.p className="mt-6 max-w-xl text-lg leading-relaxed text-white/75" variants={fadeUp} initial="hidden" animate="show" custom={0.55}>
             {business.summary}
           </motion.p>
+          </div>
+          {business.logo && !photo && (
+            <motion.figure
+              className="overflow-hidden rounded-2xl bg-black shadow-[0_30px_80px_-20px_rgb(214_166_79/0.35)] ring-1 ring-gold/25 lg:col-span-6"
+              variants={scaleReveal}
+              initial="hidden"
+              animate="show"
+              custom={0.45}
+            >
+              <Picture photo={business.logo} eager sizes="(min-width: 1024px) 45vw, 100vw" className="aspect-[3/2]" />
+            </motion.figure>
+          )}
         </Container>
       </motion.div>
     </section>

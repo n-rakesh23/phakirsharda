@@ -68,6 +68,8 @@ export const businesses = [
     slug: 'industrial-training',
     name: 'Industrial Training',
     summary: 'Industrial skill development in data, cloud computing and IT infrastructure.',
+    tagline: 'Empowering the next generation of AI innovators.',
+    hideHeroTitle: true, // visible headline is the tagline; the name stays as an sr-only <h1>
     intro:
       'We run job-focused skill development programmes in data engineering, data science, data analysis, cloud computing and QA testing, and VMware, Windows and Red Hat Linux administration.',
     locationsTitle: 'Training centres',
@@ -83,6 +85,15 @@ export const businesses = [
     icon: '/icons/industrial-training.svg',
     image: '/images/training/placeholder.svg',
     photo: null,
+    // Programme badge supplied by the company (black background, 3:2).
+    logo: {
+      src: '/images/training/industrial-knowledge-transfer.webp',
+      srcSmall: '/images/training/industrial-knowledge-transfer-768.webp',
+      width: 1200,
+      smallWidth: 768,
+      avif: true,
+      alt: 'Industrial Knowledge Transfer badge: Data Engineering, Data Science, Data Analyst, Cloud Computing & Testing, VMware Administration, Windows Administration and Red Hat Linux Administration',
+    },
   },
 ]
 
