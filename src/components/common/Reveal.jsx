@@ -1,32 +1,20 @@
-import { useEffect, useRef, useState } from 'react'
+import { motion } from 'motion/react'
+import { fadeUp, viewport } from '../../lib/motion'
 
-// Fades/slides children in when they enter the viewport. Respects prefers-reduced-motion
-// (the global CSS rule collapses the transition to ~0ms).
-export default function Reveal({ as: Tag = 'div', delay = 0, className = '', children, ...props }) {
-  const ref = useRef(null)
-  const [shown, setShown] = useState(() => typeof window === 'undefined' || !('IntersectionObserver' in window))
+// Scroll-triggered entrance. Same API as before (as, delay in ms, className), now powered by
+// Motion. Pass `variants` to use another preset from lib/motion (fadeIn, scaleReveal, slideReveal…).
+const tags = { div: motion.div, li: motion.li, section: motion.section, article: motion.article, ul: motion.ul, figure: motion.figure, span: motion.span, p: motion.p }
 
-  useEffect(() => {
-    const el = ref.current
-    if (!el || shown) return
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShown(true)
-          io.disconnect()
-        }
-      },
-      { rootMargin: '0px 0px -10% 0px' },
-    )
-    io.observe(el)
-    return () => io.disconnect()
-  }, [shown])
-
+export default function Reveal({ as = 'div', delay = 0, variants = fadeUp, className = '', children, ...props }) {
+  const Tag = tags[as] ?? motion.div
   return (
     <Tag
-      ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={`transition duration-700 ease-out ${shown ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'} ${className}`}
+      className={className}
+      variants={variants}
+      initial="hidden"
+      whileInView="show"
+      viewport={viewport}
+      custom={delay / 1000}
       {...props}
     >
       {children}

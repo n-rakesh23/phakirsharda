@@ -14,6 +14,7 @@ const founders = leadership.filter((p) => p.featured)
 const team = leadership.filter((p) => !p.featured)
 import logo from '../assets/brand/phakir-sarada-logo.jpeg'
 import trustLogo from '../assets/brand/maa-kalarai-trust-logo.webp'
+import TrustLink from '../components/common/TrustLink'
 
 const facts = [
   { value: businesses.length, label: 'Business verticals' },
@@ -43,8 +44,9 @@ export default function About() {
             <SectionHeading eyebrow="Who we are" title="One parent company, five businesses." />
             <div className="mt-6 max-w-[62ch] space-y-4 text-lg leading-relaxed">
               <p>
-                {company.legalName} is a diversified industrial company. Our offices are in Bhubaneswar and Paradip
-                in Odisha, and in Bengaluru, Karnataka.
+                {company.legalName} is a diversified industrial company. Our corporate office is in Bengaluru,
+                Karnataka, and we have offices in Bhubaneswar and Jagatsinghpur in Odisha. Our construction business operates
+                through our subsidiary, Suntech Infra Consultancy Private Limited, from its office in Paradip.
               </p>
               <p>
                 We have mining operations in the Keonjhar, Sundargarh, Jajpur and Mayurbhanj districts of Odisha,
@@ -190,11 +192,11 @@ export default function About() {
         <Container>
           <SectionHeading eyebrow="Purpose" title="Mission, vision and values." />
           <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {['Mission', 'Vision', 'Values'].map((t) => (
-              <div key={t} className="rounded-xl bg-white p-8 shadow-card">
+            {['Mission', 'Vision', 'Values'].map((t, i) => (
+              <Reveal key={t} delay={i * 90} className="rounded-xl bg-white p-8 shadow-card">
                 <h3 className="text-xl font-bold">{t}</h3>
                 <p className="mt-3 text-sm">Approved wording to be supplied by the company.</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </Container>
@@ -205,16 +207,16 @@ export default function About() {
         <Container>
           <SectionHeading eyebrow="Our businesses" title="What we do." />
           <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {businesses.map((b) => (
-              <li key={b.slug}>
+            {businesses.map((b, i) => (
+              <Reveal as="li" key={b.slug} delay={i * 70}>
                 <Link
                   to={`/businesses/${b.slug}`}
-                  className="group flex h-full flex-col rounded-xl border border-navy/10 p-6 transition hover:border-gold hover:shadow-card"
+                  className="group flex h-full flex-col rounded-xl border border-navy/10 p-6 transition duration-300 ease-smooth hover:-translate-y-1 hover:border-gold hover:shadow-card"
                 >
                   <img src={b.icon} alt="" width="36" height="36" className="h-9 w-9" />
                   <span className="mt-4 font-heading text-lg font-bold text-navy group-hover:text-gold">{b.name}</span>
                 </Link>
-              </li>
+              </Reveal>
             ))}
           </ul>
         </Container>
@@ -228,11 +230,13 @@ export default function About() {
             <p className="mt-5 max-w-[56ch] text-lg leading-relaxed">
               The {trust.name} carries out our charitable work. Its guiding words are "{trust.tagline}".
             </p>
-            <Link to="/community" className="mt-6 inline-block font-semibold text-navy underline decoration-gold decoration-2 underline-offset-8 hover:text-gold">
-              About the trust
-            </Link>
+            <TrustLink showIcon className="mt-6 inline-flex items-center gap-2 font-semibold text-navy underline decoration-gold decoration-2 underline-offset-8 hover:text-gold">
+              Visit the trust website
+            </TrustLink>
           </div>
-          <img src={trustLogo} alt={trust.name} width="350" height="100" loading="lazy" className="mx-auto h-auto w-full max-w-md" />
+          <TrustLink className="mx-auto block w-full max-w-md transition-transform duration-300 ease-smooth hover:scale-[1.02]">
+            <img src={trustLogo} alt={trust.name} width="350" height="100" loading="lazy" className="h-auto w-full" />
+          </TrustLink>
         </Container>
       </section>
 

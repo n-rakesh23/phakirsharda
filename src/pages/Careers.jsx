@@ -26,7 +26,7 @@ export default function Careers() {
         breadcrumb={[{ label: 'Careers' }]}
         eyebrow="Careers"
         title="Work with us."
-        intro="We work across five businesses and three offices. Here is how to apply."
+        intro={`We work across five businesses and ${offices.length} offices. Here is how to apply.`}
       />
 
       <section className="py-[clamp(4rem,8vw,7rem)]">
@@ -34,7 +34,7 @@ export default function Careers() {
           <div className="lg:col-span-5">
             <SectionHeading eyebrow="Where you could work" title="Across the group." />
           </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:col-span-7">
+          <Reveal className="grid gap-8 sm:grid-cols-2 lg:col-span-7">
             <div>
               <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-navy">Businesses</h3>
               <ul className="mt-4 space-y-2">
@@ -49,10 +49,10 @@ export default function Careers() {
             <div>
               <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-navy">Offices</h3>
               <ul className="mt-4 space-y-2">
-                {offices.map((o) => <li key={o.city}>{o.city}, {o.state}</li>)}
+                {offices.map((o) => <li key={o.id}>{o.city}, {o.state}</li>)}
               </ul>
             </div>
-          </div>
+          </Reveal>
         </Container>
       </section>
 
@@ -72,9 +72,9 @@ export default function Careers() {
               ))}
             </ul>
           ) : (
-            <p className="mt-6 max-w-2xl text-lg">
+            <Reveal as="p" className="mt-6 max-w-2xl text-lg">
               Openings will be listed here as they come up. You are welcome to send a general application at any time.
-            </p>
+            </Reveal>
           )}
         </Container>
       </section>

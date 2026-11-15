@@ -1,5 +1,6 @@
-// Responsive photo plus a "Representative image" label for stock/AI imagery, so illustrative
-// pictures are never presented as the company's own sites (docs/design.md §7, §14).
+// Responsive photo (<picture>: AVIF first, WebP fallback) plus a "Representative image" label for
+// stock/AI imagery, so illustrative pictures are never presented as the company's own sites
+// (docs/design.md §7, §14).
 //
 // When the photo sits under gradient overlays, pass `label={false}` and render
 // <RepresentativeLabel /> after the overlays so it stays visible.
@@ -15,20 +16,38 @@ export function RepresentativeLabel({ photo, className = 'bottom-3 right-3' }) {
   )
 }
 
+const avifOf = (src) => src?.replace(/\.webp$/, '.avif')
+
+function srcSets(photo) {
+  const w = photo.width ?? 1600
+  const webp = photo.srcSmall ? `${photo.srcSmall} 800w, ${photo.src} ${w}w` : `${photo.src} ${w}w`
+  const avif = photo.avif ? (photo.srcSmall ? `${avifOf(photo.srcSmall)} 800w, ${avifOf(photo.src)} ${w}w` : `${avifOf(photo.src)} ${w}w`) : null
+  return { webp, avif }
+}
+
+export function Picture({ photo, sizes = '100vw', eager = false, className = '', alt }) {
+  const { webp, avif } = srcSets(photo)
+  return (
+    <picture>
+      {avif && <source type="image/avif" srcSet={avif} sizes={sizes} />}
+      <source type="image/webp" srcSet={webp} sizes={sizes} />
+      <img
+        src={photo.src}
+        alt={alt ?? photo.alt}
+        loading={eager ? 'eager' : 'lazy'}
+        fetchPriority={eager ? 'high' : undefined}
+        decoding="async"
+        className={`h-full w-full object-cover ${className}`}
+      />
+    </picture>
+  )
+}
+
 export default function Photo({ photo, className = '', sizes = '100vw', eager = false, label = true, labelClassName }) {
   if (!photo) return null
   return (
     <div className={`relative ${className}`}>
-      <img
-        src={photo.src}
-        srcSet={photo.srcSmall ? `${photo.srcSmall} 800w, ${photo.src} ${photo.width ?? 1600}w` : undefined}
-        sizes={sizes}
-        alt={photo.alt}
-        loading={eager ? 'eager' : 'lazy'}
-        fetchPriority={eager ? 'high' : undefined}
-        decoding="async"
-        className="h-full w-full object-cover"
-      />
+      <Picture photo={photo} sizes={sizes} eager={eager} />
       {label && <RepresentativeLabel photo={photo} className={labelClassName} />}
     </div>
   )

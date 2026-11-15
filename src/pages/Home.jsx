@@ -1,30 +1,31 @@
-import Hero from '../components/sections/Hero'
-import BusinessesBento from '../components/sections/BusinessesBento'
-import Overview from '../components/sections/Overview'
-import Footprint from '../components/sections/Footprint'
-import FeaturedProject from '../components/sections/FeaturedProject'
-import WhyUs from '../components/sections/WhyUs'
+import HeroCinematic from '../components/sections/HeroCinematic'
+import AtAGlance from '../components/sections/AtAGlance'
+import Divisions from '../components/sections/Divisions'
+import AboutIntro from '../components/sections/AboutIntro'
+import FootprintMap from '../components/sections/FootprintMap'
+import ProjectsShowcase from '../components/sections/ProjectsShowcase'
 import CommunityTeaser from '../components/sections/CommunityTeaser'
-import EnquiryCTA from '../components/sections/EnquiryCTA'
+import ClosingCTA from '../components/sections/ClosingCTA'
 import usePageMeta from '../hooks/usePageMeta'
 
-// Homepage sequence per docs/design.md §8. The "Safety and responsibility" section is
-// intentionally omitted until the company supplies policies that are actually implemented.
+// Homepage scroll story (docs/experience.md):
+// A hero → B at a glance → C divisions → D about → E footprint → F projects → G community → H enquiry.
+// No "safety" or impact claims until the company supplies implemented, approved initiatives.
 export default function Home() {
   usePageMeta(
     null,
-    'Phakir Sarada Private Limited: mining, construction, manufacturing, transportation and industrial training, rooted in Odisha.',
+    'Phakir Sarada Private Limited: mining, construction, manufacturing, transportation and industrial skill development, rooted in Odisha.',
   )
   return (
     <>
-      <Hero />
-      <BusinessesBento />
-      <Overview />
-      <Footprint />
-      <FeaturedProject />
-      <WhyUs />
+      <HeroCinematic />
+      <AtAGlance />
+      <Divisions />
+      <AboutIntro />
+      <FootprintMap />
+      <ProjectsShowcase />
       <CommunityTeaser />
-      <EnquiryCTA />
+      <ClosingCTA />
     </>
   )
 }

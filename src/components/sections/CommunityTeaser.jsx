@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom'
 import Container from '../common/Container'
 import Reveal from '../common/Reveal'
 import { trust } from '../../data/site'
 import trustLogo from '../../assets/brand/maa-kalarai-trust-logo.webp'
+import TrustLink from '../common/TrustLink'
 
 // The trust uses its own navy and red (from its logo) for a warmer, distinct feel.
 export default function CommunityTeaser() {
@@ -20,21 +20,16 @@ export default function CommunityTeaser() {
                 <p className="mt-5 max-w-[56ch] text-lg leading-relaxed">
                   Our charitable work is carried out through the {trust.name}.
                 </p>
-                <Link
-                  to="/community"
-                  className="mt-8 inline-flex items-center gap-2 rounded-md bg-trust-red px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-trust-navy"
+                <TrustLink
+                  showIcon
+                  className="mt-8 inline-flex items-center gap-2 rounded-md bg-trust-red px-5 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-trust-navy"
                 >
-                  About the trust <span aria-hidden="true">→</span>
-                </Link>
+                  Visit the trust website
+                </TrustLink>
               </div>
-              <img
-                src={trustLogo}
-                alt={trust.name}
-                width="350"
-                height="100"
-                loading="lazy"
-                className="mx-auto h-auto w-full max-w-md"
-              />
+              <TrustLink className="mx-auto block w-full max-w-md transition-transform duration-300 ease-smooth hover:scale-[1.02]">
+                <img src={trustLogo} alt={trust.name} width="350" height="100" loading="lazy" className="h-auto w-full" />
+              </TrustLink>
             </div>
           </div>
         </Reveal>

@@ -1,9 +1,12 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import Header from './Header'
 import Footer from './Footer'
 import ScrollToTop from './ScrollToTop'
+import ScrollProgress from '../motion/ScrollProgress'
 
 export default function Layout() {
+  const { pathname } = useLocation()
+  const home = pathname === '/'
   return (
     <div className="flex min-h-screen flex-col">
       <a
@@ -13,8 +16,11 @@ export default function Layout() {
         Skip to content
       </a>
       <ScrollToTop />
+      <ScrollProgress />
       <Header />
-      <main id="main" className="flex-1">
+      {/* The header is fixed. The homepage hero sits underneath it (transparent header);
+          every other page is offset by the header height. Keyed by route for the page fade. */}
+      <main id="main" key={pathname} className={`flex-1 animate-page-in ${home ? '' : 'pt-18'}`}>
         <Outlet />
       </main>
       <Footer />

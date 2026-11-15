@@ -3,6 +3,7 @@ import Container from '../components/common/Container'
 import PageHeader from '../components/common/PageHeader'
 import Reveal from '../components/common/Reveal'
 import EnquiryBand from '../components/sections/EnquiryBand'
+import ClientsSection from '../components/sections/ClientsSection'
 import usePageMeta from '../hooks/usePageMeta'
 import { businesses, getBusiness } from '../data/businesses'
 import { projects, statusLabel } from '../data/projects'
@@ -12,7 +13,7 @@ const sectorsWithProjects = businesses.filter((b) => projects.some((p) => p.sect
 export default function Projects() {
   usePageMeta(
     'Projects & Operations',
-    'Projects and operations of Phakir Sarada Private Limited, including construction at Paradip and mining operations across four districts of Odisha.',
+    'Projects, operations and clients of Phakir Sarada Private Limited, including construction at Paradip and mining operations across four districts of Odisha.',
   )
   const [filter, setFilter] = useState('all')
   const shown = filter === 'all' ? projects : projects.filter((p) => p.sector === filter)
@@ -30,7 +31,7 @@ export default function Projects() {
 
       <section className="py-[clamp(4rem,8vw,7rem)]">
         <Container>
-          <div role="group" aria-label="Filter by business" className="flex flex-wrap gap-2">
+          <Reveal role="group" aria-label="Filter by business" className="flex flex-wrap gap-2">
             {tabs.map((t) => (
               <button
                 key={t.slug}
@@ -44,7 +45,7 @@ export default function Projects() {
                 {t.name}
               </button>
             ))}
-          </div>
+          </Reveal>
 
           <ul className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {shown.map((p, i) => {
@@ -78,6 +79,8 @@ export default function Projects() {
           </ul>
         </Container>
       </section>
+
+      <ClientsSection />
 
       <EnquiryBand title="Planning a project?" text="Tell us about it and the right team will get back to you." />
     </>

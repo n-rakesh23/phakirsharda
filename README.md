@@ -154,6 +154,8 @@ See `website-structure.md` for the detailed sitemap and page hierarchy.
 The project is scaffolded with Vite 8, React 19, React Router 7, and
 Tailwind CSS 4 (via `@tailwindcss/vite`, with no `tailwind.config.js`).
 Design tokens live in `src/styles/index.css` under `@theme`.
+Animation uses Motion for React, configured centrally in
+`src/lib/motion.js`. See `docs/experience.md`.
 
 ``` text
 phakirsharda/
@@ -391,6 +393,10 @@ Recommended delivery sequence:
   ----------------------------------- -----------------------------------
   `design.md`                         Overall visual and experience
                                       specification
+
+  `experience.md`                     Implemented homepage story, motion
+                                      system, performance and remaining
+                                      content needs
 
   `brand-guidelines.md`               Logo usage, colours, typography,
                                       and brand rules

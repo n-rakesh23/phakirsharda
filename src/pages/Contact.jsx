@@ -4,7 +4,11 @@ import Container from '../components/common/Container'
 import PageHeader from '../components/common/PageHeader'
 import Button from '../components/common/Button'
 import usePageMeta from '../hooks/usePageMeta'
+import OfficeAddress from '../components/common/OfficeAddress'
+import { mapLink } from '../utils/maps'
+import ContactLinks from '../components/common/ContactLinks'
 import { company, enquiryCategories, offices } from '../data/site'
+import Reveal from '../components/common/Reveal'
 
 // Posts JSON to VITE_ENQUIRY_ENDPOINT (e.g. Formspree, Web3Forms or a serverless function).
 // The receiving service MUST validate server-side and apply spam protection (README §9, §11).
@@ -47,6 +51,8 @@ export default function Contact() {
   const [params] = useSearchParams()
   const requested = params.get('category')
   const initialCategory = enquiryCategories.includes(requested) ? requested : ''
+  const programme = params.get('programme')
+  const initialMessage = programme ? `I would like to know more about the ${programme.slice(0, 80)} programme.` : ''
   const [status, setStatus] = useState('idle') // idle | sending | sent | error | not-configured
   const [errors, setErrors] = useState({})
 
@@ -104,6 +110,7 @@ export default function Contact() {
               </Button>
             </div>
           ) : (
+            <Reveal>
             <form noValidate onSubmit={handleSubmit} className="grid gap-5 rounded-xl bg-white p-6 shadow-card sm:grid-cols-2 sm:p-10">
               <Field id="name" label="Name" required error={errors.name}>
                 <input id="name" name="name" className={field} autoComplete="name" {...err('name')} />
@@ -128,7 +135,7 @@ export default function Contact() {
               </Field>
               <div className="sm:col-span-2">
                 <Field id="message" label="Message" required error={errors.message}>
-                  <textarea id="message" name="message" rows={6} className={field} {...err('message')} />
+                  <textarea key={initialMessage} id="message" name="message" rows={6} className={field} defaultValue={initialMessage} {...err('message')} />
                 </Field>
               </div>
 
@@ -158,22 +165,36 @@ export default function Contact() {
                 )}
                 {status === 'not-configured' && (
                   <p className="mt-3 text-sm text-trust-red">
-                    The enquiry service is not connected yet (set VITE_ENQUIRY_ENDPOINT). Nothing was sent.
+                    Online enquiries are not connected yet, so nothing was sent. Please email{' '}
+                    <a href={`mailto:${company.email}`} className="font-semibold underline">{company.email}</a> or call{' '}
+                    <a href={company.phoneHref} className="font-semibold underline">{company.phone}</a>.
                   </p>
                 )}
               </div>
             </form>
+            </Reveal>
           )}
         </div>
 
+        <Reveal delay={150}>
         <aside className="space-y-8">
+          <div className="rounded-xl bg-white p-6 shadow-card">
+            <h2 className="text-xl font-bold">Call or email us</h2>
+            <ContactLinks className="mt-4 space-y-3" linkClassName="text-lg font-semibold text-navy transition-colors duration-200 hover:text-gold" iconClassName="h-5 w-5 text-gold" />
+          </div>
           <div>
             <h2 className="text-xl font-bold">Offices</h2>
             <ul className="mt-4 space-y-5">
               {offices.map((o) => (
-                <li key={o.city} className="border-l-2 border-gold pl-4">
+                <li key={o.id} className="border-l-2 border-gold pl-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gold">{o.label}</p>
                   <p className="font-heading font-bold text-navy">{o.city}, {o.state}</p>
-                  <p className="text-sm">{o.address ?? 'Address to be confirmed'}</p>
+                  {o.entity && <p className="text-xs font-semibold text-graphite">{o.entity}</p>}
+                  <OfficeAddress office={o} className="mt-1 text-sm" />
+                  <a href={mapLink(o)} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-navy underline decoration-gold underline-offset-4 hover:text-gold">
+                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><path d="M8 14s5-4.5 5-8.5A5 5 0 0 0 3 5.5C3 9.5 8 14 8 14Z"/><circle cx="8" cy="5.5" r="1.8"/></svg>
+                    Map<span className="sr-only"> of the {o.city} office (opens in a new tab)</span>
+                  </a>
                   {o.phone && <a href={`tel:${o.phone.replace(/\s/g, '')}`} className="block text-sm text-navy underline">{o.phone}</a>}
                   {o.email && <a href={`mailto:${o.email}`} className="block text-sm text-navy underline">{o.email}</a>}
                 </li>
@@ -186,6 +207,7 @@ export default function Contact() {
             <Link to="/careers" className="mt-4 inline-block text-sm font-semibold text-gold underline underline-offset-4">Careers</Link>
           </div>
         </aside>
+        </Reveal>
       </Container>
     </>
   )
